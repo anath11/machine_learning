@@ -1,4 +1,8 @@
 import pandas as pd
+import seaborn as sns
+from bokeh.plotting import figure, show
+from bokeh.models import HoverTool
+
 data_frame = pd.read_csv('data.csv')
 data_frame.shape
 
@@ -28,3 +32,27 @@ df1['Wage'] = wage
 df1['Value'] = value
 df1['difference'] = df1['Value']-df1['Wage']
 df1.sort_values('difference', ascending=False)
+
+
+# Seaborn import and implementaion
+sns.set()
+
+graph = sns.scatterplot(x='Wage', y='Value', data=df1)
+graph
+
+
+# from bokeh.plotting import figure,show
+# from bokeh.models import HoverTool
+
+TOOLTIPS = HoverTool(tooltips=[
+    ('index', '$index'),
+    ('Wage,Value ', '@Wage,@Value'),
+    ('Name', '@Name')
+])
+
+# hover = HoverTool(tooltips=[])
+
+p = figure(title='Soccer 2019', x_axis_label='Wage', y_axis_label='Value',
+           plot_width=700, plot_height=700, tools=[TOOLTIPS])
+p.circle('Wage', 'Value', size=10, source=df1)
+show(p)
