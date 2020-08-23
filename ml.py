@@ -27,4 +27,4 @@ value = df1['Value'].replace('[\€]', '', regex=True).apply(value_to_float)
 df1['Wage'] = wage
 df1['Value'] = value
 df1['difference'] = df1['Value']-df1['Wage']
-df1
+df1.sort_values('difference', ascending=False)
